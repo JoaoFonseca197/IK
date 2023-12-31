@@ -4,6 +4,7 @@ using UnityEngine;
 public class CCDIK : MonoBehaviour
 {
     [SerializeField] private List<Transform> _listJoints;
+    //Left arm constraint hammer down !!
     [SerializeField] private Constraint _armConstraint;
     [SerializeField] private Transform _target;
     [SerializeField] private Transform _endEffectorTip;
@@ -11,23 +12,24 @@ public class CCDIK : MonoBehaviour
     [SerializeField] private float _errorDistance;
 
     private Vector3 _endEffectorPosition;
-    private List<Vector3> _jointsOriginalRotation;
 
     private void Start()
     {
         _endEffectorPosition = _endEffectorTip.position;
-
-
     }
 
    
-
+    /// <summary>
+    /// Forced Clamp of the rotation
+    /// </summary>
+    /// <param name="rotation">Rotation from the joint</param>
+    /// <returns></returns>
     private Vector3 CheckMaxRotation( Vector3 rotation)
     {
-        rotation.x = Mathf.Clamp(rotation.x, _armConstraint.minX, _armConstraint.maxX);
-        rotation.y = Mathf.Clamp(rotation.y, _armConstraint.minY, _armConstraint.maxY);
-        rotation.z = Mathf.Clamp(rotation.z, _armConstraint.minZ, _armConstraint.maxZ);
-        return new Vector3(Mathf.Clamp(rotation.x, _armConstraint.minX, _armConstraint.maxX), Mathf.Clamp(rotation.y, _armConstraint.minY, _armConstraint.maxY), Mathf.Clamp(rotation.z, _armConstraint.minZ, _armConstraint.maxZ));
+        float x = Mathf.Clamp(rotation.x, _armConstraint.minX, _armConstraint.maxX);
+        float y = Mathf.Clamp(rotation.y, _armConstraint.minY, _armConstraint.maxY);
+        float z = Mathf.Clamp(rotation.z, _armConstraint.minZ, _armConstraint.maxZ);
+        return new Vector3(x, y, z);
     }
 
     // Update is called once per frame
@@ -43,7 +45,7 @@ public class CCDIK : MonoBehaviour
                 u2 = (_target.position - _listJoints[jointNBR].position);
 
                 _listJoints[jointNBR].rotation = Quaternion.FromToRotation(u1, u2) * _listJoints[jointNBR].rotation;
-
+                //Just the left arm for test
                 if(jointNBR == 0)
                     _listJoints[jointNBR].localEulerAngles =  CheckMaxRotation( _listJoints[jointNBR].localEulerAngles);
 
