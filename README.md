@@ -27,13 +27,13 @@ As the site and video mentions we will need:
 
 ![variables](/ProjectImages/CCDIK_Variables.png)
 
-In short what CCGIK does is making a loop throw all the joints and calculates
+In short what CCGIK does is making a loop through all the joints and calculates
 a vector from the current joint to the End Effector and another from the current
 joint to the target,we calculate the angle made between this 2 vectors
 and make a rotation from it.
 
 The way that you should get the joints is going from the end factor and get the 
-transform from the parent until this is null or met an condition. In my case I am
+transform from the parent until this is null or met a condition. In my case I am
 putting the joints that I want, to use for demonstration.
 
 After getting all the joints transforms, on the `FixedUpdate()` we do a condition to
@@ -41,7 +41,7 @@ check if the distance between the end effector and the target are smaller than t
 error margin. Create 2 `Vector3` variables, to be used later. Now, do a for loop
 that iterates through all the transform joints. Inside the loop calculate the
 vector that goes from the current joint to the end factor (`u1`), calculate another vector
-that goes from the current joint to the target(`u2`) and perform an rotation with an angle 
+that goes from the current joint to the target(`u2`) and perform a rotation with an angle 
 calculated from the vectors `u1`, `u2`.
 
 The code should look like this:
@@ -76,7 +76,7 @@ some constraints.
 In my project I created a ScriptableObject called `Constraints` with the
 solo objective of constraining the rotation of the transform reminding that
 all the movement of the arm is just rotations. For this project I will only
-constrain the left arm. What I think is the best to do this is when getting
+constrain the left arm. What I think is the best to do, is when getting
 all the joint transforms, it should show options in the unity editor, instead
 of creating this script `Constraint`.
 
@@ -117,3 +117,10 @@ void FixedUpdate()
 This is the end result:
 
 ![Arm_Gif2](/ProjectImages/ArmMovementConstrained.gif)
+
+## References
+
+- [Cyclic Coordonate Descent Inverse Kynematic](http://rodolphe-vaillant.fr/entry/114/cyclic-coordonate-descent-inverse-kynematic-ccd-ik) and the video
+- [Unite Berlin 2018 - An Introduction to CCD IK and How to use it](https://www.youtube.com/watch?v=MA1nT9RAF3k)
+- [MathWorks](https://www.mathworks.com/discovery/inverse-kinematics.html)
+- [Master Thesis - Inverse Kinematics](http://www.diva-portal.org/smash/get/diva2:1018821/FULLTEXT01.pdf)
