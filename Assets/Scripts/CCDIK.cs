@@ -4,8 +4,6 @@ using UnityEngine;
 public class CCDIK : MonoBehaviour
 {
     [SerializeField] private List<Transform> _listJoints;
-    //Left arm constraint hammer down !!
-    [SerializeField] private Constraint _armConstraint;
     [SerializeField] private Transform _target;
     [SerializeField] private Transform _endEffectorTip;
     [Range(0,1)]
@@ -19,18 +17,7 @@ public class CCDIK : MonoBehaviour
     }
 
    
-    /// <summary>
-    /// Forced Clamp of the rotation
-    /// </summary>
-    /// <param name="rotation">Rotation from the joint</param>
-    /// <returns></returns>
-    private Vector3 CheckMaxRotation( Vector3 rotation)
-    {
-        float x = Mathf.Clamp(rotation.x, _armConstraint.minX, _armConstraint.maxX);
-        float y = Mathf.Clamp(rotation.y, _armConstraint.minY, _armConstraint.maxY);
-        float z = Mathf.Clamp(rotation.z, _armConstraint.minZ, _armConstraint.maxZ);
-        return new Vector3(x, y, z);
-    }
+   
 
     // Update is called once per frame
     void FixedUpdate()

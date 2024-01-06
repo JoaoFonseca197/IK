@@ -23,3 +23,8 @@ As the site and video mentions we will need:
 - A list with all joints
 - The End Effector
 - The target 
+
+In short what CCGIK does is making a loop throw all the joints and calculates
+a vector from the current joint to the End Effector and another from the current
+joint to the target,we calculate the angle made between this 2 vectors
+and make a rotation from it.
